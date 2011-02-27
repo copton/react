@@ -30,24 +30,23 @@ class Process(ProcessEvent):
         self.script = options.script
 
     def process_IN_CREATE(self, event):
-        print("Create: " + event.path + " " + event.name)
         target = os.path.join(event.path, event.name)
         if os.path.isdir(target):
             raise Reload()
 
     def process_IN_DELETE(self, event):
-        print("Delete: " + event.path + " " + event.name)
         raise Reload()
 
     def process_IN_CLOSE_WRITE(self, event):
-        print("close write: " +  os.path.join(event.path, event.name))
         target = os.path.join(event.path, event.name)
         if self.pattern.match(target):
             args = [self.script]
             params2 = map (lambda s: s.replace("$p", event.path), self.parameters)
             params3 = map (lambda s: s.replace("$f", event.name), params2)
             args += params3
+            sys.stdout.write("executing script:" + " ".join(args) + "\n")
             subprocess.call(args)
+            sys.stdout.write("------------------------\n")
 
 while True:
     wm = WatchManager()
