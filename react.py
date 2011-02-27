@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(description='Launch a script if specified files
 parser.add_argument('directory', help='the directory which is recursively monitored')
 parser.add_argument('-p', '--pattern', required=False, default=".*", help='files only trigger the reaction if therir name matches this regular expression')
 parser.add_argument("script", help="the script that is executed upon reaction")
-parser.add_argument("parameters", nargs="*", help="paramemters which are passed to the reaction script. $p is expanded to the full path and $f to the file name of the modified file")
+parser.add_argument("parameters", nargs="*", help="paramemters which are passed to the reaction script. $f is expanded to the full path of the modified file")
 
 class Options:
     __slots__=["directory", "pattern", "script", "parameters"]
@@ -41,9 +41,7 @@ class Process(ProcessEvent):
         target = os.path.join(event.path, event.name)
         if self.pattern.match(target):
             args = [self.script]
-            params2 = map (lambda s: s.replace("$p", event.path), self.parameters)
-            params3 = map (lambda s: s.replace("$f", event.name), params2)
-            args += params3
+            args += map (lambda s: s.replace("$f", target), self.parameters)
             sys.stdout.write("executing script:" + " ".join(args) + "\n")
             subprocess.call(args)
             sys.stdout.write("------------------------\n")
