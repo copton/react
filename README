@@ -1,0 +1,9 @@
+= Command line tool for inotify
+
+== Dependencies
+ * [pyinotify](https://github.com/seb-m/pyinotify)
+ * [Python 3.2](http://www.python.org/download/releases/3.2/)
+
+== Information
+ * Licence: GPL 2.0
+ * Author: Alexander Bernauer (alex@copton.net)
