@@ -5,6 +5,19 @@
  * [pyinotify](https://github.com/seb-m/pyinotify)
  * [Python 3.2](http://www.python.org/download/releases/3.2/)
 
+## Usage
+
+See "react --help"
+
+For a simple test execute "./react.py /tmp -p '*.txt' echo '$f'" and
+create and modify directories and files in /tmp. For every file ending with
+.txt its full path is printed on the console every time this file is created or
+changed.
+
+The intended purpose of this tool is to trigger the execution of a test suites
+every time a source file of the project is modified. This speeds up my
+vim-based software development a lot.
+
 ## Information
 
  * Licence: GPL 2.0
