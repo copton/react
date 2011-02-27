@@ -51,7 +51,7 @@ class Process(ProcessEvent):
         if self.regex.match(target):
             args = [self.script]
             args += map (lambda s: s.replace("$f", target), self.parameters)
-            sys.stdout.write("executing script:" + " ".join(args) + "\n")
+            sys.stdout.write("executing script: " + " ".join(args) + "\n")
             subprocess.call(args)
             sys.stdout.write("------------------------\n")
 
