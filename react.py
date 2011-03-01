@@ -21,10 +21,9 @@ group.add_argument('-r', '--regex', required=False, default=".*", help='files on
 group.add_argument('-p', '--pattern', required=False, dest="regex", action=PatternAction, help='files only trigger the reaction if their name matches this shell pattern')
 
 parser.add_argument("script", help="the script that is executed upon reaction")
-parser.add_argument("parameters", nargs="*", help="paramemters which are passed to the reaction script. $f is expanded to the full path of the modified file")
 
 class Options:
-    __slots__=["directory", "regex", "script", "parameters"]
+    __slots__=["directory", "regex", "script"]
 
 options = Options()
 args = parser.parse_args(namespace=options)
@@ -35,7 +34,6 @@ class Reload (Exception):
 class Process(ProcessEvent):
     def __init__(self,  options):
         self.regex = re.compile(options.regex)
-        self.parameters = options.parameters
         self.script = options.script
 
     def process_IN_CREATE(self, event):
@@ -49,8 +47,7 @@ class Process(ProcessEvent):
     def process_IN_CLOSE_WRITE(self, event):
         target = os.path.join(event.path, event.name)
         if self.regex.match(target):
-            args = [self.script]
-            args += map (lambda s: s.replace("$f", target), self.parameters)
+            args = self.script.replace('$f', target).split()
             sys.stdout.write("executing script: " + " ".join(args) + "\n")
             subprocess.call(args)
             sys.stdout.write("------------------------\n")

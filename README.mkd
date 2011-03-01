@@ -9,14 +9,28 @@
 
 See "react --help"
 
-For a simple test execute "./react.py /tmp -p '*.txt' echo '$f'" and
-create and modify directories and files in /tmp. For every file ending with
-.txt its full path is printed on the console every time this file is created or
-changed.
+### Hello World
+`react.py /tmp -p '*.txt' 'echo $f'`
 
-The intended purpose of this tool is to trigger the execution of a test suites
-every time a source file of the project is modified. This speeds up my
-vim-based software development a lot.
+This is a simple test. Execute the above command and create and modify
+directories and files in /tmp. For every file ending with .txt its full path is
+printed on the console every time this file is created or changed.
+
+### Executing test suites
+`react.py ../ -p '*.hs' ./runTests`
+
+The main motivation of this tool was to be able to trigger the execution of a
+test suites every time a source file of the project is modified. This speeds up
+my vim-based software development a lot.
+
+### Setting file ACL entries
+`react.py /srv/www/team 'setfacl -m g:team:rwx $f'`
+
+A major disadvantage of default [file ACLs](http://linux.die.net/man/1/setfacl)
+is that it only reacts on newly created files. If you move a file into a
+directory with a default ACL entry, this file's ACL entries are not updated. In
+practice this means that sooner or later every default-ACL-based control
+management will break. With react you can circumvent this problem.
 
 ## Information
 
