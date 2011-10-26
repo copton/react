@@ -48,6 +48,7 @@ class Process(ProcessEvent):
         target = os.path.join(event.path, event.name)
         if self.regex.match(target):
             args = self.script.replace('$f', target).split()
+            os.system("clear")
             sys.stdout.write("executing script: " + " ".join(args) + "\n")
             subprocess.call(args)
             sys.stdout.write("------------------------\n")
