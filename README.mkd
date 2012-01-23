@@ -3,7 +3,8 @@
 ## Dependencies
 
  * [pyinotify](https://github.com/seb-m/pyinotify)
- * [Python 3.2](http://www.python.org/download/releases/3.2/)
+ * [Python 3.x](http://www.python.org/download/releases/3.2/) | [Python 2.x](http://www.python.org/download/releases/2.7.2/)
+ * [argparse](http://pypi.python.org/pypi/argparse)
 
 ## Usage
 
@@ -20,7 +21,7 @@ printed on the console every time this file is created or changed.
 `react.py ../ -p '*.hs' ./runTests`
 
 The main motivation of this tool was to be able to trigger the execution of a
-test suites every time a source file of the project is modified. This speeds up
+test suite each time a source file of the project is modified. This speeds up
 my vim-based software development a lot.
 
 ### Setting file ACL entries
@@ -34,5 +35,5 @@ management will break. With react you can circumvent this problem.
 
 ## Information
 
- * Licence: GPL 2.0
+ * Licence: [GPL 2.0](http://www.gnu.org/licenses/gpl-2.0.html)
  * Author: Alexander Bernauer (alex@copton.net)
